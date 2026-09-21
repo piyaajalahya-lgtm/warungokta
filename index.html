@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Warung Okta</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #fff4e6;
+            margin: 0;
+            text-align: center;
+        }
+
+        header {
+            background: #d97706;
+            color: white;
+            padding: 25px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .menu {
+            background: white;
+            width: 280px;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px #ccc;
+        }
+
+        .menu img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .menu h2 {
+            color: #b45309;
+        }
+
+        .harga {
+            color: #15803d;
+            font-weight: bold;
+        }
+
+        input {
+            width: 50px;
+            padding: 7px;
+            text-align: center;
+        }
+
+        button {
+            background: #25D366;
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #128C7E;
+        }
+
+        .pesanan {
+            background: white;
+            margin: 20px auto;
+            padding: 20px;
+            width: 85%;
+            max-width: 500px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px #ccc;
+        }
+
+        footer {
+            background: #d97706;
+            color: white;
+            padding: 15px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>🍴 WARUNG OKTA 🍴</h1>
+    <p>Rujak Cingur • Es Legen • Gorengan</p>
+</header>
+
+<div class="container">
+
+    <!-- RUJAK -->
+    <div class="menu">
+        <img src="https://images.unsplash.com/photo-1547592180-85f173990554">
+
+        <h2>🥗 Rujak Cingur</h2>
+        <p>Rujak cingur dengan bumbu petis.</p>
+        <p class="harga">Rp15.000</p>
+
+        <label>Jumlah:</label>
+        <input type="number" id="rujak" value="0" min="0">
+    </div>
+
+
+    <!-- ES LEGEN -->
+    <div class="menu">
+        <img src="https://images.unsplash.com/photo-1544145945-f90425340c7e">
+
+        <h2>🥤 Es Legen</h2>
+        <p>Minuman segar dan nikmat.</p>
+        <p class="harga">Rp5.000</p>
+
+        <label>Jumlah:</label>
+        <input type="number" id="legen" value="0" min="0">
+    </div>
+
+
+    <!-- GORENGAN -->
+    <div class="menu">
+        <img src="https://images.unsplash.com/photo-1626776876729-bab4369a5a5a">
+
+        <h2>🍘 Gorengan</h2>
+        <p>Gorengan renyah dan enak.</p>
+        <p class="harga">Rp2.000</p>
+
+        <label>Jumlah:</label>
+        <input type="number" id="gorengan" value="0" min="0">
+    </div>
+
+</div>
+
+
+<!-- PESANAN -->
+<div class="pesanan">
+
+    <h2>🛒 Pesanan Kamu</h2>
+
+    <p id="hasil">Belum ada pesanan.</p>
+
+    <h3 id="total">Total: Rp0</h3>
+
+    <button onclick="kirimWA()">
+        📱 Kirim Pesanan ke WhatsApp
+    </button>
+
+</div>
+
+
+<footer>
+    <p>© 2026 Warung Okta</p>
+</footer>
+
+
+<script>
+
+function kirimWA() {
+
+    let rujak = parseInt(document.getElementById("rujak").value);
+    let legen = parseInt(document.getElementById("legen").value);
+    let gorengan = parseInt(document.getElementById("gorengan").value);
+
+    let hargaRujak = 15000;
+    let hargaLegen = 5000;
+    let hargaGorengan = 2000;
+
+    let total =
+        (rujak * hargaRujak) +
+        (legen * hargaLegen) +
+        (gorengan * hargaGorengan);
+
+    if (total == 0) {
+        alert("Silakan pilih pesanan terlebih dahulu!");
+        return;
+    }
+
+    let pesan = "Halo Warung Okta 👋%0A";
+    pesan += "Saya ingin memesan:%0A%0A";
+
+    if (rujak > 0) {
+        pesan += "🥗 Rujak Cingur x" + rujak;
+        pesan += " = Rp" + (rujak * hargaRujak).toLocaleString("id-ID") + "%0A";
+    }
+
+    if (legen > 0) {
+        pesan += "🥤 Es Legen x" + legen;
+        pesan += " = Rp" + (legen * hargaLegen).toLocaleString("id-ID") + "%0A";
+    }
+
+    if (gorengan > 0) {
+        pesan += "🍘 Gorengan x" + gorengan;
+        pesan += " = Rp" + (gorengan * hargaGorengan).toLocaleString("id-ID") + "%0A";
+    }
+
+    pesan += "%0A💰 Total: Rp" + total.toLocaleString("id-ID");
+    pesan += "%0A%0ATerima kasih 😊";
+
+    // GANTI NOMOR INI DENGAN NOMOR WHATSAPP PENJUAL
+    let nomor = "6281233136219";
+
+    window.open(
+        "https://wa.me/" + nomor + "?text=" + pesan,
+        "_blank"
+    );
+}
+
+</script>
+
+</body>
+</html>
